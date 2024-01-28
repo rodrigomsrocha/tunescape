@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1706146271496,
+      "tag": "0000_curved_mantis",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1706467778835,
+      "tag": "0001_handy_micromacro",
+      "breakpoints": true
+    }
+  ]
+}
