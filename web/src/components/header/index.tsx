@@ -1,4 +1,5 @@
 import { Waveform } from '@phosphor-icons/react/dist/ssr'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { NavDropdown } from '../nav-dropdown'
 import { SignInButton } from '../signin-button'
@@ -6,11 +7,11 @@ import { Button } from '../ui/button'
 import { UserDropdown } from '../user-dropdown'
 
 export function Header() {
-  const isAuthenticated = false
+  const isAuthenticated = cookies().has('token')
 
   return (
     <header className="max-w-5xl mx-auto p-4 flex items-center justify-between">
-      <div className="flex">
+      <div className="flex items-center">
         <NavDropdown />
         <div className="flex gap-5 items-center">
           <Waveform color="#facc15" size={48} />

@@ -1,3 +1,4 @@
+import { getUser } from '@/lib/auth'
 import {
   CassetteTape,
   Notepad,
@@ -18,23 +19,25 @@ import {
 } from '../ui/dropdown-menu'
 
 export function UserDropdown() {
+  const user = getUser()
+
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={user.avatarURL} />
+          <AvatarFallback>{user.name[0]}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64">
         <DropdownMenuLabel>
           <div className="flex items-center gap-4 py-1">
             <Avatar className="h-8 w-8">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={user.avatarURL} />
+              <AvatarFallback>{user.name[0]}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col space-y-1">
-              <strong className="text-sm leading-none">Rodrigo M.</strong>
+              <strong className="text-sm leading-none">{user.name}</strong>
               <span className="text-xs leading-none text-muted-foreground">
                 rodrigomtc82@gmail.com
               </span>
@@ -71,7 +74,9 @@ export function UserDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex items-center gap-2">
           <SignOut className="h-5 w-5 text-destructive" />
-          <strong className="text-destructive">Log out</strong>
+          <a href="/api/auth/logout" className="text-destructive">
+            Log out
+          </a>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -17,7 +17,7 @@ import {
 export function NavDropdown() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild={true}>
         <Button className="flex sm:hidden" variant="ghost" size="icon">
           <List size={24} />
         </Button>

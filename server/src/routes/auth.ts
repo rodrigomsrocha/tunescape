@@ -45,7 +45,8 @@ export async function authRoutes(app: FastifyInstance) {
 
     const userInfo = userSchema.parse(userResponse.data)
     const formattedUserInfo = {
-      ...userInfo,
+      spotify_id: userInfo.id,
+      display_name: userInfo.display_name,
       avatar_url: userInfo.images[0].url,
     }
 
@@ -63,6 +64,17 @@ export async function authRoutes(app: FastifyInstance) {
         .get()
     }
 
-    console.log(user)
+    const token = app.jwt.sign(
+      {
+        name: user.display_name,
+        avatarURL: user.avatar_url,
+      },
+      {
+        sub: user.id,
+        expiresIn: '30 days',
+      },
+    )
+
+    return { token }
   })
 }
