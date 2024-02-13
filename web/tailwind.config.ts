@@ -19,8 +19,8 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        sans: 'var(--font-inter)',
-        alt: 'var(--font-comfortaa)',
+        sans: ['var(--font-inter)'],
+        alt: ['var(--font-comfortaa)'],
       },
       colors: {
         border: 'hsl(var(--border))',

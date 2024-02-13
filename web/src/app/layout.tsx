@@ -5,12 +5,14 @@ import './globals.css'
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
+  display: 'swap',
   weight: '500',
   variable: '--font-comfortaa',
 })
 
 const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-inter',
 })
 

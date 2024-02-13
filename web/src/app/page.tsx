@@ -1,8 +1,27 @@
 import { AlbumCard } from '@/components/album-card'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
+import { api } from '@/lib/api'
+import { cookies } from 'next/headers'
 
-export default function Home() {
+interface Album {
+  id: string
+  name: string
+  artists: { name: string }[]
+  images: {
+    url: string
+  }[]
+}
+
+export default async function Home() {
+  const token = cookies().get('token')?.value
+  const response = await api.get('/listen-now', {
+    headers: { Authorization: 'Bearer ' + token },
+  })
+
+  const { albumsRecommendations }: { albumsRecommendations: Album[] } =
+    response.data
+
   return (
     <main className="space-y-8">
       <section className="space-y-4">
@@ -11,12 +30,9 @@ export default function Home() {
         <Separator orientation="horizontal" />
         <ScrollArea>
           <div className="flex w-max gap-4 pb-4">
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
+            {albumsRecommendations.map((album) => (
+              <AlbumCard key={album.id} album={album} />
+            ))}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
@@ -29,12 +45,9 @@ export default function Home() {
         <Separator orientation="horizontal" />
         <ScrollArea>
           <div className="flex w-max gap-4 pb-4">
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
+            {/* {albumsRecommendations.map((album) => (
+              <AlbumCard key={album.id} album={album} />
+            ))} */}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
@@ -45,12 +58,9 @@ export default function Home() {
         <Separator orientation="horizontal" />
         <ScrollArea>
           <div className="flex w-max gap-4 pb-4">
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
-            <AlbumCard />
+            {/* {albumsRecommendations.map((album) => (
+              <AlbumCard key={album.id} album={album} />
+            ))} */}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>

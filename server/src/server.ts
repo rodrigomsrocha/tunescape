@@ -3,6 +3,7 @@ import jwt from '@fastify/jwt'
 import 'dotenv/config'
 import fastify from 'fastify'
 import { authRoutes } from './routes/auth'
+import { recommendationsRoutes } from './routes/recommendations'
 
 const app = fastify()
 app.register(cors, {
@@ -13,6 +14,7 @@ app.register(jwt, {
 })
 
 app.register(authRoutes)
+app.register(recommendationsRoutes)
 
 app
   .listen({
