@@ -13,18 +13,19 @@
   "dependencies": {
     "@fastify/cors": "^8.5.0",
     "@fastify/jwt": "^8.0.0",
-    "@libsql/client": "^0.4.0-pre.7",
+    "@libsql/client": "^0.4.3",
+    "@prisma/adapter-libsql": "^5.9.1",
+    "@prisma/client": "^5.9.1",
     "axios": "^1.6.5",
     "dotenv": "^16.3.2",
-    "drizzle-orm": "^0.29.3",
     "fastify": "^4.25.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/node": "^20.11.5",
-    "drizzle-kit": "^0.20.13",
     "eslint": "^8.56.0",
+    "prisma": "^5.9.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }

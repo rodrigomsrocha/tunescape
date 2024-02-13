@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { db } from '../db/connection'
-import { users } from '../db/schema'
+import { prisma } from '../lib/prisma'
 
 export async function authRoutes(app: FastifyInstance) {
   app.post('/register', async (request) => {
@@ -27,7 +26,7 @@ export async function authRoutes(app: FastifyInstance) {
       },
     )
 
-    const { access_token, token_type } = accessTokenResponse.data
+    const { access_token, token_type, refresh_token } = accessTokenResponse.data
 
     const userResponse = await axios.get('https://api.spotify.com/v1/me', {
       headers: {
@@ -48,20 +47,15 @@ export async function authRoutes(app: FastifyInstance) {
       spotify_id: userInfo.id,
       display_name: userInfo.display_name,
       avatar_url: userInfo.images[0].url,
+      refresh_token,
     }
 
-    let user = await db.query.users.findFirst({
-      where(fields, { eq }) {
-        return eq(fields.id, userInfo.id)
-      },
+    let user = await prisma.user.findFirst({
+      where: { spotify_id: formattedUserInfo.spotify_id },
     })
 
     if (!user) {
-      user = await db
-        .insert(users)
-        .values({ ...formattedUserInfo })
-        .returning()
-        .get()
+      user = await prisma.user.create({ data: formattedUserInfo })
     }
 
     const token = app.jwt.sign(

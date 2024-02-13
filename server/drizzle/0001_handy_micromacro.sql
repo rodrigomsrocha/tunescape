@@ -1,1 +1,0 @@
-CREATE UNIQUE INDEX `users_id_unique` ON `users` (`id`);
